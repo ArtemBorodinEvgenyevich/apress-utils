@@ -20,8 +20,10 @@ module Apress::Utils::Extensions::ActiveRecord
         #
         # Returns Object
         def validate_uniqueness_of_in_memory(collection, attrs, message, attribute = :base, options = {})
+          binding.pry if attrs == [:value, :contact_type_id]
           duplicates = []
           hashes = collection.inject({}) do |hash, record|
+            binding.pry if attrs == [:value, :contact_type_id]
             key = attrs.map {|a| record.send(a).to_s }.join
             if key.blank? || record.marked_for_destruction?
               key = record.object_id
